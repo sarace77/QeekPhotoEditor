@@ -5,9 +5,9 @@
 #include <QLabel>
 #include <QMouseEvent>
 #include <QPoint>
-#include <QWidget>
+#include <QScrollArea>
 
-class QPEWorkAreaWidget : public QWidget
+class QPEWorkAreaWidget : public QScrollArea
 {
     Q_OBJECT
 private:
@@ -17,6 +17,7 @@ private:
     void mouseMoveEvent(QMouseEvent *event);
 
     QLabel *_imageArea;
+    QWidget *_parent;
 
 public:
     explicit QPEWorkAreaWidget(QWidget *parent = 0);

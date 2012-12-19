@@ -17,7 +17,7 @@ class QPEMainWindow : public QMainWindow
     
 private:
     Ui::QPEMainWindow *ui;
-    QFileDialog *imageDialog;
+    QFileDialog *imageDialog, *saveDialog;
     QPEWorkAreaWidget *workArea;
 
     QImage currentImage;
@@ -25,7 +25,11 @@ private:
 private slots:
     void _DEBUG_showPointerPos(QPoint newPos);
     void on_actionOpenImage_triggered();
+    void on_actionSaveImage_triggered();
+    void on_actionZoomIn_triggered();
+    void on_actionZoomOut_triggered();
     void onImageFileSelected();
+    void onSaveDialogAccepted();
 
 public:
     explicit QPEMainWindow(QWidget *parent = 0);

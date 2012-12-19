@@ -1,13 +1,19 @@
 #include "qpeworkareawidget.h"
 
 #include <QDebug>
+#include <QScrollBar>
+
 
 QPEWorkAreaWidget::QPEWorkAreaWidget(QWidget *parent) :
-    QWidget(parent)
+    QScrollArea(parent)
 {
-    _imageArea = new QLabel(this);
-    _imageArea->setGeometry(0, 0, 10, 10);
+    _parent = parent;
+    _imageArea = new QLabel();
+    _imageArea->setBackgroundRole(QPalette::Base);
+    _imageArea->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+    _imageArea->setScaledContents(true);
     _imageArea->setMouseTracking(true);
+    setWidget(_imageArea);
 }
 
 QPEWorkAreaWidget::~QPEWorkAreaWidget() {
@@ -15,9 +21,12 @@ QPEWorkAreaWidget::~QPEWorkAreaWidget() {
 }
 
 void QPEWorkAreaWidget::displayQImage(QImage image) {
-    resize(image.size());
-    _imageArea->resize(image.size());
+    if (_parent != NULL) {
+        resize(_parent->size());
+    }
+    setWidgetResizable(image.width() < _parent->width() && image.height() < _parent->height());
     _imageArea->setPixmap(QPixmap::fromImage(image));
+    _imageArea->adjustSize();
 }
 
 void QPEWorkAreaWidget::mousePressEvent(QMouseEvent *event) {

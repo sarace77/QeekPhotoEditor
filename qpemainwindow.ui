@@ -28,8 +28,21 @@
      <string>&amp;File</string>
     </property>
     <addaction name="actionOpenImage"/>
+    <addaction name="actionSaveImage"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menu_View">
+    <property name="title">
+     <string>&amp;View</string>
+    </property>
+    <addaction name="actionZoomIn"/>
+    <addaction name="actionZoomOut"/>
+    <addaction name="separator"/>
+    <addaction name="actionRestoreZoom"/>
    </widget>
    <addaction name="menu_File"/>
+   <addaction name="menu_View"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -43,13 +56,79 @@
   <action name="actionOpenImage">
    <property name="icon">
     <iconset resource="qperesources.qrc">
-     <normaloff>:/icons/load.png</normaloff>:/icons/load.png</iconset>
+     <normaloff>:/icons/icons/load.png</normaloff>:/icons/icons/load.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Open Image</string>
    </property>
+   <property name="toolTip">
+    <string>Open an Image</string>
+   </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionSaveImage">
+   <property name="icon">
+    <iconset resource="qperesources.qrc">
+     <normaloff>:/icons/icons/save.png</normaloff>:/icons/icons/save.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Save Image</string>
+   </property>
+   <property name="toolTip">
+    <string>Save current Image</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="icon">
+    <iconset resource="qperesources.qrc">
+     <normaloff>:/icons/icons/quit.png</normaloff>:/icons/icons/quit.png</iconset>
+   </property>
+   <property name="text">
+    <string>E&amp;xit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+X</string>
+   </property>
+  </action>
+  <action name="actionZoomIn">
+   <property name="icon">
+    <iconset resource="qperesources.qrc">
+     <normaloff>:/icons/icons/zoom-In.png</normaloff>:/icons/icons/zoom-In.png</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom In</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl++</string>
+   </property>
+  </action>
+  <action name="actionZoomOut">
+   <property name="icon">
+    <iconset resource="qperesources.qrc">
+     <normaloff>:/icons/icons/zoom-out.png</normaloff>:/icons/icons/zoom-out.png</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom Out</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+-</string>
+   </property>
+  </action>
+  <action name="actionRestoreZoom">
+   <property name="icon">
+    <iconset resource="qperesources.qrc">
+     <normaloff>:/icons/icons/zoom-fit.png</normaloff>:/icons/icons/zoom-fit.png</iconset>
+   </property>
+   <property name="text">
+    <string>Restore Zoom</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+0</string>
    </property>
   </action>
  </widget>
@@ -57,5 +136,22 @@
  <resources>
   <include location="qperesources.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>actionExit</sender>
+   <signal>triggered()</signal>
+   <receiver>QPEMainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

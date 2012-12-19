@@ -1,5 +1,24 @@
 <RCC>
     <qresource prefix="/icons">
-        <file>load.png</file>
+        <file>icons/cancel.png</file>
+        <file>icons/check.png</file>
+        <file>icons/copy.png</file>
+        <file>icons/cut.png</file>
+        <file>icons/delete.png</file>
+        <file>icons/edit.png</file>
+        <file>icons/help.png</file>
+        <file>icons/info.png</file>
+        <file>icons/load.png</file>
+        <file>icons/paste.png</file>
+        <file>icons/properties.png</file>
+        <file>icons/quit.png</file>
+        <file>icons/redo.png</file>
+        <file>icons/save-as.png</file>
+        <file>icons/save.png</file>
+        <file>icons/settings.png</file>
+        <file>icons/undo.png</file>
+        <file>icons/zoom-fit.png</file>
+        <file>icons/zoom-In.png</file>
+        <file>icons/zoom-out.png</file>
     </qresource>
 </RCC>
