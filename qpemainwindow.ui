@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>QPEMainWindow</string>
+   <string>QeekPhotoEditor</string>
   </property>
   <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
@@ -41,8 +41,15 @@
     <addaction name="separator"/>
     <addaction name="actionRestoreZoom"/>
    </widget>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>&amp;?</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_View"/>
+   <addaction name="menu"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -129,6 +136,21 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+0</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="qperesources.qrc">
+     <normaloff>:/icons/icons/info.png</normaloff>:/icons/icons/info.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;About</string>
+   </property>
+   <property name="toolTip">
+    <string>About Application</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+F1</string>
    </property>
   </action>
  </widget>

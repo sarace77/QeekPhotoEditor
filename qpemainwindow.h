@@ -21,16 +21,20 @@ private:
     QFileDialog *imageDialog, *saveDialog;
     QPEWorkAreaWidget *workArea;
 
-    QImage currentImage;
+    QImage currentImage, loadedImage;
     QMenu *waMenu;
 
     void resizeEvent ( QResizeEvent *rEvent );
+
+    quint8 zoomInCount, zoomOutCount;
 
 private slots:
     void _DEBUG_showPointerPos(QPoint newPos);
 
     void changeWorkingAreaSize(QSize size);
+    void on_actionAbout_triggered();
     void on_actionOpenImage_triggered();
+    void on_actionRestoreZoom_triggered();
     void on_actionSaveImage_triggered();
     void on_actionZoomIn_triggered();
     void on_actionZoomOut_triggered();

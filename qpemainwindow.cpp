@@ -2,6 +2,7 @@
 #include "ui_qpemainwindow.h"
 
 #include <QDebug>
+#include <QMessageBox>
 
 QPEMainWindow::QPEMainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -12,6 +13,7 @@ QPEMainWindow::QPEMainWindow(QWidget *parent) :
     ui->actionSaveImage->setEnabled(false);
     ui->actionZoomIn->setEnabled(false);
     ui->actionZoomOut->setEnabled(false);
+    ui->actionRestoreZoom->setEnabled(false);
     ui->mainToolBar->addAction(ui->actionOpenImage);
     ui->mainToolBar->addAction(ui->actionSaveImage);
     ui->mainToolBar->addSeparator();
@@ -29,6 +31,9 @@ QPEMainWindow::QPEMainWindow(QWidget *parent) :
     waMenu->addSeparator();
     waMenu->addAction(ui->actionZoomIn);
     waMenu->addAction(ui->actionZoomOut);
+    waMenu->addAction(ui->actionRestoreZoom);
+    waMenu->addSeparator();
+    waMenu->addAction(ui->actionAbout);
     waMenu->addSeparator();
     waMenu->addAction(ui->actionExit);
 
@@ -45,6 +50,9 @@ QPEMainWindow::QPEMainWindow(QWidget *parent) :
 
     connect(this, SIGNAL(availableImage(QImage)), workArea, SLOT(displayQImage(QImage)));
     connect(this, SIGNAL(sizeChanged(QSize)), this, SLOT(changeWorkingAreaSize(QSize)));
+
+    zoomInCount = 0;
+    zoomOutCount = 0;
 }
 
 QPEMainWindow::~QPEMainWindow()
@@ -66,9 +74,25 @@ void QPEMainWindow::changeWorkingAreaSize(QSize size) {
     emit availableImage(currentImage);
 }
 
+void QPEMainWindow::on_actionAbout_triggered() {
+    QMessageBox aboutBox(this);
+    aboutBox.setWindowTitle("About QeekPhotoEditor");
+    aboutBox.setText("<center><h1>Qeek PhotoEditor</h1><h2>0.1</h2><b>Written by:</b><br>Antonio Scopelliti<br>(<i>sarace77<i>)</center>");
+    aboutBox.exec();
+}
 
 void QPEMainWindow::on_actionOpenImage_triggered() {
     imageDialog->show();
+}
+
+void QPEMainWindow::on_actionRestoreZoom_triggered() {
+    zoomInCount = 0;
+    zoomOutCount = 0;
+    ui->actionRestoreZoom->setEnabled(false);
+    ui->actionZoomIn->setEnabled(true);
+    ui->actionZoomOut->setEnabled(true);
+    currentImage = loadedImage;
+    emit availableImage(currentImage);
 }
 
 void QPEMainWindow::on_actionSaveImage_triggered() {
@@ -76,19 +100,34 @@ void QPEMainWindow::on_actionSaveImage_triggered() {
 }
 
 void QPEMainWindow::on_actionZoomIn_triggered() {
-    currentImage = currentImage.scaled(2 * currentImage.size(), Qt::KeepAspectRatio);
+    ui->actionRestoreZoom->setEnabled(true);
+    ui->actionZoomIn->setEnabled(++zoomInCount < 4);
+    ui->actionZoomOut->setEnabled(true);
+    if (zoomInCount != zoomOutCount) {
+        currentImage = loadedImage.scaled(2 * currentImage.size(), Qt::KeepAspectRatio);
+    } else {
+        on_actionRestoreZoom_triggered();
+    }
     emit availableImage(currentImage);
 }
 
 void QPEMainWindow::on_actionZoomOut_triggered() {
-    currentImage = currentImage.scaled(0.5 * currentImage.size(), Qt::KeepAspectRatio);
+    ui->actionRestoreZoom->setEnabled(true);
+    ui->actionZoomIn->setEnabled(true);
+    ui->actionZoomOut->setEnabled(++zoomOutCount < 4);
+    if (zoomInCount != zoomOutCount) {
+        currentImage = loadedImage.scaled(0.5 * currentImage.size(), Qt::KeepAspectRatio);
+    } else {
+        on_actionRestoreZoom_triggered();
+    }
     emit availableImage(currentImage);
 }
 
 void QPEMainWindow::onImageFileSelected() {
     QString selectedImage = imageDialog->selectedFiles().at(0);
     if (QFile(selectedImage).exists()) {
-        currentImage = QImage(selectedImage);
+        loadedImage = QImage(selectedImage);
+        currentImage = loadedImage;
         if (currentImage.size().width() != this->size().width() || currentImage.size().height() != this->size().height() ) {
             resize(currentImage.width() + 32 , currentImage.height() + 92);
         }
