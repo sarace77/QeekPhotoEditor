@@ -1,6 +1,9 @@
 #include "qpemainwindow.h"
 #include "ui_qpemainwindow.h"
 
+#include "qpeopencvwrapper.h"
+#include <opencv2/highgui/highgui.hpp>
+
 #include <QDebug>
 #include <QMessageBox>
 
@@ -136,6 +139,9 @@ void QPEMainWindow::onImageFileSelected() {
         ui->actionSaveImage->setEnabled(true);
         ui->actionZoomIn->setEnabled(true);
         ui->actionZoomOut->setEnabled(true);
+        Mat prova = QPEOpenCVWrapper::qimage2mat(loadedImage);
+        imshow("prova", prova);
+
     }
 }
 

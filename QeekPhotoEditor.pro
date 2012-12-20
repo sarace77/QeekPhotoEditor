@@ -12,12 +12,17 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         qpemainwindow.cpp \
-    qpeworkareawidget.cpp
+    qpeworkareawidget.cpp \
+    qpeopencvwrapper.cpp
 
 HEADERS  += qpemainwindow.h \
-    qpeworkareawidget.h
+    qpeworkareawidget.h \
+    qpeopencvwrapper.h
 
 FORMS    += qpemainwindow.ui
 
 RESOURCES += \
     qperesources.qrc
+
+
+LIBS += -lopencv_core -lopencv_imgproc -lopencv_highgui
