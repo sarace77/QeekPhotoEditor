@@ -4,6 +4,7 @@
 #include <QImage>
 #include <QFileDialog>
 #include <QMainWindow>
+#include <QMenu>
 
 #include "qpeworkareawidget.h"
 
@@ -21,9 +22,14 @@ private:
     QPEWorkAreaWidget *workArea;
 
     QImage currentImage;
+    QMenu *waMenu;
+
+    void resizeEvent ( QResizeEvent *rEvent );
 
 private slots:
     void _DEBUG_showPointerPos(QPoint newPos);
+
+    void changeWorkingAreaSize(QSize size);
     void on_actionOpenImage_triggered();
     void on_actionSaveImage_triggered();
     void on_actionZoomIn_triggered();
@@ -37,6 +43,7 @@ public:
     
 signals:
     void availableImage(QImage image);
+    void sizeChanged(QSize size);
 };
 
 #endif // QPEMAINWINDOW_H

@@ -8,16 +8,28 @@ QPEWorkAreaWidget::QPEWorkAreaWidget(QWidget *parent) :
     QScrollArea(parent)
 {
     _parent = parent;
+
+    setBackgroundRole(QPalette::Window);
+
     _imageArea = new QLabel();
-    _imageArea->setBackgroundRole(QPalette::Base);
-    _imageArea->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
-    _imageArea->setScaledContents(true);
+    _imageArea->setAlignment(Qt::AlignCenter);
+    _imageArea->setBackgroundRole(QPalette::Window);
+//    _imageArea->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+//    _imageArea->setScaledContents(true);
     _imageArea->setMouseTracking(true);
+    _waMenu = NULL;
     setWidget(_imageArea);
+
 }
 
 QPEWorkAreaWidget::~QPEWorkAreaWidget() {
     delete _imageArea;
+}
+
+void QPEWorkAreaWidget::contextMenuEvent(QContextMenuEvent *event) {
+    if (_waMenu != NULL) {
+        _waMenu->exec(event->globalPos());
+    }
 }
 
 void QPEWorkAreaWidget::displayQImage(QImage image) {
@@ -55,4 +67,8 @@ void QPEWorkAreaWidget::mouseDoubleClickEvent(QMouseEvent *event) {
 
 void QPEWorkAreaWidget::mouseMoveEvent(QMouseEvent *event) {
     emit mouseMoved(event->pos());
+}
+
+void QPEWorkAreaWidget::setMenu(QMenu *menu) {
+    _waMenu = menu;
 }
